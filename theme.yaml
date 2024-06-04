@@ -9,8 +9,9 @@ spec:
     website: https://w-flac.org.cn
   description: 一款基于 Halo 的简约时尚的原创卡片式博客主题，炫酷的个人展示图，拥有 Banner 展示位、通知、侧边小卡片。
   logo: https://halo.run/logo
+  homepage: "https://github.com/wflac/theme-Mego#readme"
   website: https://w-flac.org.cn
-  repo: 
+  repo: https://github.com/wflac/theme-Mego
   settingName: "theme-Mego-setting"
   configMapName: "theme-Mego-configMap"
   version: "1.0.0"

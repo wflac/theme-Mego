@@ -4,7 +4,7 @@
 
 一款基于 Halo 的简约时尚的原创卡片式博客主题
 
- ![Demo Pic](https://w-flac.m-imo.com/upload/demo.png)
+ ![Demo Pic](/image/demo.png)
 </div>
 
 ## 演示站点： [無·Flac](https://w-flac.org.cn/)
