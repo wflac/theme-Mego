@@ -6,10 +6,12 @@
 
 一款基于 Halo 的简约时尚的原创卡片式博客主题
 
+- 此主题由 [無·Flac](https://w-flac.org.cn/) 、[胖螺](https://www.nahida.cn/)、[Anye](https://www.anye.xyz/) 共同维护。
+
  ![Demo Pic](https://parlo.cn/upload/demo.png)
 </div>
 
-## 演示站点： [無·Flac](https://w-flac.org.cn/)
+## 演示站点： [無·Flac](https://w-flac.org.cn/?preview-theme=theme-Mego)  [世界第一可爱](https://www.nahida.cn/?preview-theme=theme-Mego)
 
 ## 插件支持
 
@@ -26,8 +28,7 @@
 
 ## 👑 作者说
 
-- 感谢全世界最好的 Ryan 在主题编写中提供的各种支持。
-- 感谢 Anye 、世界第一可爱 、在场景中提供的技术支持。
+- 感谢全世界最好的 [Ryan](https://ryanc.cc/) 在主题编写中提供的各种支持。
 
 ## 💬 讨论
 
