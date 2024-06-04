@@ -1,10 +1,12 @@
 <div align="center">
+<p>
+<img alt="Logo" src="https://parlo.cn/upload/mego-logo.png" width="128">
 
 # Theme Mego
 
 一款基于 Halo 的简约时尚的原创卡片式博客主题
 
- ![Demo Pic](/image/demo.png)
+ ![Demo Pic](https://parlo.cn/upload/demo.png)
 </div>
 
 ## 演示站点： [無·Flac](https://w-flac.org.cn/)
