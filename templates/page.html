@@ -1,10 +1,50 @@
 <!DOCTYPE html>
-<html
-  xmlns:th="https://www.thymeleaf.org"
-  th:replace="~{layout :: html(head = null,content = ~{::content})}"
->
-  <th:block th:fragment="content">
-    <h1 th:text="${singlePage.spec.title}"></h1>
-    <article th:utext="${singlePage.content.content}"></article>
-  </th:block>
+
+<html xmlns:th="https://www.thymeleaf.org"
+    th:replace="~{modules/layout :: html(title = |${singlePage.spec.title} - ${site.title}|, head = ~{::head},content = ~{::content})}">
+<th:block th:fragment="content">
+    <div th:style="${not #strings.isEmpty(theme.config.header.images)} ? 'background-image: url(' + ${theme.config.header.images} + ')' : ''"
+        class="header m-auto mt-10 br-20 flex flex-col">
+        <a th:href="${site.url}" class="flex m-auto">
+            <img th:src="${site.logo}" alt="Logo" class="header-site" />
+        </a>
+        <h1 th:text="${theme.config.header.title ?: site.title}"
+            th:style="${!#strings.isEmpty(theme.config.header.color)} ? 'color: ' + ${theme.config.header.color} : ''"
+            class="mt-10 mb-10 text-2"></h1>
+        <hr>
+        <p th:text="${theme.config.header.description ?: site.subtitle}"
+            th:style="${!#strings.isEmpty(theme.config.header.color)} ? 'color: ' + ${theme.config.header.color} : ''"
+            class="mt-10"></p>
+    </div>
+    <th:block th:replace="~{modules/menu}" />
+    <article class="page-container w100 mt-10">
+        <div class="post-title">
+            <h1 th:text="${singlePage.spec.title}"></h1>
+            <div class="post-item flex justify">
+                <div class="post-item-left flex flex-center">
+                    <p th:text="${#dates.format(singlePage.spec.publishTime,'yyyy-MM-dd')}" class="mr-5"></p>
+                    <a th:each="categories : ${post.categories}" th:href="@{${categories.status.permalink}}"
+                        th:title="|分类：${categories.spec.displayName}|" th:text="|${categories.spec.displayName}|"
+                        class="ml-5"></a>
+                </div>
+                <div class="post-item-right flex">
+                    <i class="mingcute--eye-fill"></i>
+                    <span th:text="|${post.stats?.visit ?:0}|" id="visit-counter"></span>
+                    <i class="mingcute--message-1-fill"></i>
+                    <span th:text="|${post.stats?.comment ?:0}|"></span>
+                </div>
+            </div>
+        </div>
+        <div th:utext="${singlePage.content.content}" class="post-content"> </div>
+        <div id="comment" th:if="${haloCommentEnabled}" class="page-comment clearfix">
+            <div class="comment-title flex">
+                <i class="mingcute--message-1-fill"></i>
+                <h2>评论</h2>
+            </div>
+            <halo:comment group="content.halo.run" kind="SinglePage" th:attr="name=${singlePage.metadata.name}" />
+        </div>
+    </article>
+    <th:block th:replace="~{modules/footer}" />
+</th:block>
+
 </html>

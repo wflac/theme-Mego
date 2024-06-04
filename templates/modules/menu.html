@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<nav class="mt-10 w100 menu-container">
+    <ul th:with="menu = ${menuFinder.getPrimary()}" class="menu flex flex-center br-20">
+        <th:block th:each=" menuItem,iter : ${menu.menuItems}">
+            <li th:if="${#lists.isEmpty(menuItem.children)}" class="btn-menu text-center inline-block">
+                <a class="m-.5 text-1 " th:href="@{${menuItem.status.href}}" th:text="${menuItem.status.displayName}"
+                    th:target="${menuItem.spec.target?.value}">
+                </a>
+            </li>
+            <li th:attr="id=|${menuItem.metadata.name}|" th:unless="${#lists.isEmpty(menuItem.children)}"
+                class="btn-menu text-center inline-block  mx-5 ">
+                <div class="text-1 inline-block parent-menu">
+                    <a class="" th:href="@{${menuItem.status.href}}" th:text="${menuItem.status.displayName}"
+                        th:target="${menuItem.spec.target?.value}">
+                    </a>
+                    <ul class="submenu flex text-1 w100">
+                        <li th:each="childMenuItem : ${menuItem.children}">
+                            <a th:href="@{${childMenuItem.status.href}}" th:text="${childMenuItem.status.displayName}"
+                                th:target="${childMenuItem.spec.target?.value}" class="">
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </li>
+        </th:block>
+    </ul>
+    <th:block th:replace="~{modules/mobile-menu}" />
+</nav>

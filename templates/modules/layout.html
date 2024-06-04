@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="https://www.thymeleaf.org" th:fragment="html (head,content)">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport"
+    content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no" />
+  <title th:text="${title}"></title>
+  <link rel="stylesheet" th:href="@{/assets/css/reset.css?v={version}(version=${theme.spec.version})}" />
+  <link rel="stylesheet" th:href="@{/assets/css/style.css?v={version}(version=${theme.spec.version})}" />
+  <link rel="stylesheet" th:href="@{/assets/css/swiper-bundle.min.css?v={version}(version=${theme.spec.version})}" />
+  <script th:src="@{/assets/js/swiper-bundle.min.js?v={version}(version=${theme.spec.version})}"></script>
+  <th:block th:if="${head != null}">
+    <th:block th:replace="${head}" />
+  </th:block>
+</head>
+
+<body>
+  <th:block th:replace="${content}" />
+</body>
+
+<script th:src="@{/assets/js/style.js?v={version}(version=${theme.spec.version})}"></script>
+
+</html>

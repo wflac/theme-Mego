@@ -1,0 +1,57 @@
+<html xmlns:th="https://www.thymeleaf.org"
+    th:replace="~{modules/layout :: html(title = ${error.status} + ' | ' + ${#strings.defaultString(error.title, 'Internal server error')} + ' - ' +${site.title}, hero = null, header = null, content = ~{::content}, head = null, footer = null, sidebar = null, contentClass = '')}">
+
+<th:block th:fragment="content">
+    <div class="error-container">
+        <div class="error-main">
+            <p class="error-text-1">:(</p>
+            <p class="error-text-2">你访问的网站页面出现问题，请重新检索信息。</p>
+            <p class="error-text-3">正在收集错误页面访问原因，然后为你跳转上一页。</p>
+            <p class="error-text-4" id="error-text-4">0% 完成</p>
+            <div class="error-about">
+                <!-- <img style="width: 137px; height: 137px; margin-right: 20px;" th:src="${site.logo}" alt="logo"> -->
+                <div class="error-about-text-main">
+                    <div class="error-about-text-main-item">
+                        <p th:if="${not #strings.isEmpty(error.status)}" th:text="|出现此问题的原因：${error.status}|"
+                            class="error-about-text-top"></p>
+                        <p th:text="${#strings.defaultString(error.title, 'Internal server error')}"
+                            class="error-about-text-top1">
+                        </p>
+                    </div>
+                    <ul class="error-about-text-down">
+                        <ol>1. 该页面已被管理员删除；</ol>
+                        <ol>2. 该页面已被管理员移动到其他位置；</ol>
+                        <ol>3. 该页面链接填写错误。</ol>
+                        <ol id="error-code"></ol>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        window.onload = function () {
+            function updateProgressBar() {
+                let n = 0;
+                const speed = 100;
+                const progressBar = document.getElementById('error-text-4');
+
+                if (!progressBar) {
+                    console.error('Progress bar element not found');
+                    return;
+                }
+
+                const timer = setInterval(() => {
+                    if (n <= 100) {
+                        progressBar.innerText = `${n}%`;
+                        n++;
+                    } else {
+                        clearInterval(timer);
+                        history.go(-1);
+                    }
+                }, speed);
+            }
+
+            updateProgressBar();
+        };
+    </script>
+</th:block>

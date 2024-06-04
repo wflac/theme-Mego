@@ -1,0 +1,40 @@
+<th:block th:fragment="content">
+    <div class="mobile-menu w100 flex" id="mobile">
+        <div class="mobile-logo flex">
+            <a th:href="${site.url}" class="flex">
+                <img th:src="${site.logo}" alt="Logo" class="header-site" />
+            </a>
+            <h1 th:text="${theme.config.header.title ?: site.title}"
+                th:style="${!#strings.isEmpty(theme.config.header.color)} ? 'color: ' + ${theme.config.header.color} : ''">
+            </h1>
+        </div>
+        <div class="mobile-icon flex">
+            <i class="mingcute--search-3-line" th:if="${pluginFinder.available('PluginSearchWidget')}"
+                onclick="SearchWidget.open()">
+                <a href="javascript:void(0)" title="搜索"></a>
+            </i>
+            <i class="mingcute--align-vertical-center-fill" onclick="toggle()"></i>
+        </div>
+    </div>
+    <div class="mobile-nav" th:with="menu = ${menuFinder.getPrimary()}">
+        <th:block th:each=" menuItem,iter : ${menu.menuItems}">
+            <li th:if="${#lists.isEmpty(menuItem.children)}" class="btn-menu text-center inline-block">
+                <a class="m-.5 text-1 " th:href="@{${menuItem.status.href}}" th:text="${menuItem.status.displayName}"
+                    th:target="${menuItem.spec.target?.value}">
+                </a>
+            </li>
+        </th:block>
+    </div>
+    <script>
+        function toggle() {
+            var nav = document.querySelector('.mobile-nav');
+            if (nav.classList.contains('shown')) {
+                nav.classList.remove('shown');
+
+            } else {
+                nav.classList.add('shown');
+
+            }
+        }
+    </script>
+</th:block>

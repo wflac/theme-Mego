@@ -1,34 +1,16 @@
-<!DOCTYPE html>
-<html xmlns:th="https://www.thymeleaf.org"
-    th:replace="~{modules/layout :: html(title = |${category.spec.displayName} - ${site.title}|, content = ~{::content}, head = null, footer = null, sidebar = ~{::sidebar}, contentClass = '')}">
 <th:block th:fragment="content">
-    <div class="category-header mt-10">
-        <div class="categories-item flex">
-            <div class="categories-item-img">
-                <a th:href="@{${category.status.permalink}}">
-                    <img th:src="${category.spec.cover}" th:if="not ${#strings.isEmpty(category.spec.cover)}">
-                </a>
-            </div>
-            <div class="categories-item-content">
-                <h2>
-                    <a th:href="@{${category.status.permalink}}">
-                        <span th:text="${category.spec.displayName}"></span>
-                        <sup th:text="'[' + @{${category.status.visiblePostCount}} + ']'"></sup>
-                    </a>
-                </h2>
-            </div>
-        </div>
-    </div>
-    <th:block th:replace="~{modules/menu}" />
-    <div class="categoies flex mt-10">
-        <div class="category-main mr-5">
-            <div th:each="post : ${posts.items}" class="article-item mb-10 flex ">
-
+    <div class="main-contents flex mt-10">
+        <div class="article mr-5">
+            <div th:each="post : ${posts.items}" class="article-item br-20 mb-10 flex ">
                 <div class="article-cover flex align-center">
                     <img th:src="${post.spec.cover}" th:if="not ${#strings.isEmpty(post.spec.cover)}">
                 </div>
-
                 <div class="article-main flex flex-col justify">
+                    <div class="article-tags flex align-center">
+                        <a th:each="tag : ${post.tags}" th:if="not ${#strings.isEmpty(tag.status.permalink)}"
+                            th:href="@{${tag.status.permalink}}" th:title="|标签：${tag.spec.displayName}|"
+                            th:text="|#${tag.spec.displayName}|"></a>
+                    </div>
                     <div class="article-contents">
                         <H2>
                             <a th:href="@{${post.status.permalink}}" th:text="${post.spec.title}"></a>
@@ -51,19 +33,11 @@
                             <span th:text="|${post.stats?.visit ?:0}|" id="visit-counter"></span>
                             <i class="mingcute--message-1-fill"></i>
                             <span th:text="|${post.stats?.comment ?:0}|"></span>
-                            <i class="mingcute--thumb-up-2-fill"></i>
-                            <span th:text="|${post.stats?.upvote ?:0}|"></span>
                         </div>
                     </div>
-                    <div class="article-tags flex align-center">
-                        <a th:each="tag : ${post.tags}" th:href="@{${tag.status.permalink}}"
-                            th:title="|标签：${tag.spec.displayName}|" th:text="|#${tag.spec.displayName}|"></a>
-                    </div>
                 </div>
-
             </div>
         </div>
-        <th:block th:replace="~{modules/other-card :: other-card(prepend = null)}" />
+        <th:block th:replace="~{modules/aside-card :: aside-card(prepend = null)}" />
     </div>
-    <th:block th:replace="~{modules/footer}" />
 </th:block>

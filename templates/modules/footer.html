@@ -1,0 +1,8 @@
+<footer>
+  <span class="footer-container">
+    ©
+    <th:block th:text="${#dates.format(new java.util.Date().getTime(), 'yyyy')}" />
+    <a href="/" th:text="${site.title}"></a>. All Rights Reserved.<br>
+    <halo:footer />
+  </span>
+</footer>

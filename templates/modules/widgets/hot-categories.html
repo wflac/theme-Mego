@@ -1,0 +1,15 @@
+<div class="hot-categories mb-10">
+    <div class="hot-title flex flex-center">
+        <i class="heroicons-solid--fire"></i>
+        <p>分类归档</p>
+    </div>
+    <ul th:with="categories = ${categoryFinder.listAll()}" class="hot-category">
+        <li th:each="category : ${categories}">
+            <a th:href="@{${category.status.permalink}}">
+                <th:block th:text="${category.spec.displayName}" />
+                <span th:text="${category.status.visiblePostCount}">
+                </span>
+            </a>
+        </li>
+    </ul>
+</div>

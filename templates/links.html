@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+
+<html xmlns:th="https://www.thymeleaf.org"
+    th:replace="~{modules/layout :: html(title = '友链' + ' - ' + ${site.title}, head = null,content = ~{::content})}">
+
+<th:block th:fragment="content">
+
+    <div th:style="${not #strings.isEmpty(theme.config.header.images)} ? 'background-image: url(' + ${theme.config.header.images} + ')' : ''"
+        class="header m-auto mt-10 br-20 flex flex-col">
+        <a th:href="${site.url}" class="flex m-auto">
+            <img th:src="${site.logo}" alt="Logo" class="header-site" />
+        </a>
+        <h1 th:text="${theme.config.header.title ?: site.title}"
+            th:style="${!#strings.isEmpty(theme.config.header.color)} ? 'color: ' + ${theme.config.header.color} : ''"
+            class="mt-10 mb-10 text-2"></h1>
+        <hr>
+        <p th:text="${theme.config.header.description ?: site.subtitle}"
+            th:style="${!#strings.isEmpty(theme.config.header.color)} ? 'color: ' + ${theme.config.header.color} : ''"
+            class="mt-10"></p>
+    </div>
+
+    <th:block th:replace="~{modules/menu}" />
+
+    <div class="link-title mt-10 br-20" th:if="${theme.config.links.title}">
+        <th:block th:utext="${theme.config.links.title}"></th:block>
+    </div>
+
+    <div class="link-card flex mt-10 flex-col" th:if="${theme.config.links.style == 'card'}">
+        <div class="link-item br-20" th:each="group,iterStat : ${groups}" th:if="${not #lists.isEmpty(group.links)}">
+            <div class="link-list" th:each="link : ${group.links}">
+                <div class="link-photo">
+                    <img th:src="${link.spec.logo}">
+                </div>
+                <h1 th:text="${link.spec.displayName}"></h1>
+                <h2 th:text="${group.spec.displayName}"></h2>
+                <p th:text="${link.spec.description}"></p>
+                <a th:href="${link.spec.url}">立即前往</a>
+            </div>
+        </div>
+    </div>
+    <div class="link-normal flex mt-10 flex-col" th:if="${theme.config.links.style == 'normal'}">
+        <div class="link-item mb-10" th:each="group,iterStat : ${groups}" th:if="${not #lists.isEmpty(group.links)}">
+            <h1 th:text="${group.spec.displayName}"></h1>
+            <a th:href="${link.spec.url}" class="link-list flex">
+                <div class="link-card2 flex" th:each="link : ${group.links}">
+                    <div class="link-logo">
+                        <img th:src="${link.spec.logo}">
+                    </div>
+                    <div class="link-content flex flex-col">
+                        <h2 th:text="${link.spec.displayName}"></h2>
+                        <p th:text="${link.spec.description}"></p>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </div>
+    <th:block th:replace="~{modules/footer}" />
+</th:block>
+
+
+</html>

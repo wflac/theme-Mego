@@ -1,0 +1,34 @@
+<div th:with="stats = ${siteStatsFinder.getStats()}" class="site flex mb-10">
+    <img th:src="${site.logo ?: #theme.assets('/images/user.svg')}" alt="Logo" class="site-logo" />
+    <div class="site-stats flex justify text-center">
+        <div class="site-stats-list">
+            <p th:text="${stats.post}"></p>
+            <div class="aside-card-about-name">文章数</div>
+        </div>
+        <div class="site-stats-list">
+            <p th:text="${stats.category}"></p>
+            <div class="aside-card-about-name">分类数</div>
+        </div>
+        <div class="site-stats-list">
+            <p th:text="${stats.comment}"></p>
+            <div class="aside-card-about-name">评论数</div>
+        </div>
+        <div class="site-stats-list">
+            <p th:text="${stats.visit}"></p>
+            <div class="aside-card-about-name">访问量</div>
+        </div>
+    </div>
+    <hr>
+    <div th:with="social = ${theme.config.sidebar.social}" th:unless="${_templateId == 'post'}"
+        class="site-social mt-10">
+        <th:block th:each="social_item : ${social}" class="flex">
+            <a th:if="${social_item.url_type == 'normal'}" th:href="${social_item.url}" target="_blank"
+                th:title="${social_item.name}">
+                <i th:classappend="${social_item.icon}"></i>
+            </a>
+            <span th:if="${social_item.url_type == 'image'}" th:href="${social_item.url}" target="_blank">
+                <i th:classappend="${social_item.icon}"></i>
+            </span>
+        </th:block>
+    </div>
+</div>

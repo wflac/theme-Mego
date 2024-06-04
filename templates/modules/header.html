@@ -1,0 +1,15 @@
+<th:block th:if="${theme.config.header.cover}">
+    <div th:style="${not #strings.isEmpty(theme.config.header.images)} ? 'background-image: url(' + ${theme.config.header.images} + ')' : ''"
+        class="header m-auto mt-10 br-20 flex flex-col">
+        <a th:href="${site.url}" class="flex m-auto">
+            <img th:src="${site.logo}" alt="Logo" class="header-site" />
+        </a>
+        <h1 th:text="${theme.config.header.title ?: site.title}"
+            th:style="${!#strings.isEmpty(theme.config.header.color)} ? 'color: ' + ${theme.config.header.color} : ''"
+            class="mt-10 mb-10 text-2"></h1>
+        <hr>
+        <p th:text="${theme.config.header.description ?: site.subtitle}"
+            th:style="${!#strings.isEmpty(theme.config.header.color)} ? 'color: ' + ${theme.config.header.color} : ''"
+            class="mt-10"></p>
+    </div>
+</th:block>

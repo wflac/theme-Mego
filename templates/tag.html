@@ -1,19 +1,93 @@
 <!DOCTYPE html>
-<html
-  xmlns:th="https://www.thymeleaf.org"
-  th:replace="~{layout :: html(head = null,content = ~{::content})}"
->
-  <th:block th:fragment="content">
-    <h1 th:text="${tag.spec.displayName}"></h1>
-    <ul>
-      <li th:each="post : ${posts.items}">
-        <a
-          th:href="@{${post.status.permalink}}"
-          th:text="${post.spec.title}"
-        ></a>
-      </li>
-    </ul>
-    <a th:if="${posts.hasPrevious()}" th:href="@{${posts.prevUrl}}">上一页</a>
-    <a th:if="${posts.hasNext()}" th:href="@{${posts.nextUrl}}">下一页</a>
-  </th:block>
+
+<html xmlns:th="https://www.thymeleaf.org"
+    th:replace="~{modules/layout :: html( title = |标签：${tag.spec.displayName} - ${site.title}|, head = null,content = ~{::content})}">
+
+<th:block th:fragment="content">
+
+    <div th:style="${not #strings.isEmpty(theme.config.header.images)} ? 'background-image: url(' + ${theme.config.header.images} + ')' : ''"
+        class="header m-auto mt-10 br-20 flex flex-col">
+        <a th:href="${site.url}" class="flex m-auto">
+            <img th:src="${site.logo}" alt="Logo" class="header-site" />
+        </a>
+        <h1 th:text="${theme.config.header.title ?: site.title}"
+            th:style="${!#strings.isEmpty(theme.config.header.color)} ? 'color: ' + ${theme.config.header.color} : ''"
+            class="mt-10 mb-10 text-2"></h1>
+        <hr>
+        <p th:text="${theme.config.header.description ?: site.subtitle}"
+            th:style="${!#strings.isEmpty(theme.config.header.color)} ? 'color: ' + ${theme.config.header.color} : ''"
+            class="mt-10"></p>
+    </div>
+    <th:block th:replace="~{modules/menu}" />
+
+    <div class="tags flex mt-10">
+        <div class="tags-main mr-5">
+            <div th:each="post : ${posts.items}" class="article-item mb-10 flex ">
+
+                <div class="article-cover flex align-center">
+                    <img th:src="${post.spec.cover}" th:if="not ${#strings.isEmpty(post.spec.cover)}">
+                </div>
+
+                <div class="article-main flex flex-col justify">
+                    <div class="article-contents">
+                        <H2>
+                            <a th:href="@{${post.status.permalink}}" th:text="${post.spec.title}"></a>
+                        </H2>
+                        <p th:href="@{${post.status.permalink}}" th:text="${post.status.excerpt}" class="article-wirte">
+                        </p>
+                    </div>
+                    <div class="article-data flex justify">
+                        <div class="element-left flex">
+                            <div class="icon-outline flex flex-center">
+                                <i class="lets-icons--date-fill"></i>
+                                <p th:text="|${#dates.format(post.spec.publishTime,'yyyy-MM-dd')}"></p>
+                            </div>
+                            <a th:each="categories : ${post.categories}" th:href="@{${categories.status.permalink}}"
+                                th:title="|分类：${categories.spec.displayName}|"
+                                th:text="|${categories.spec.displayName}|"></a>
+                        </div>
+                        <div class="element-right flex flex-center">
+                            <i class="mingcute--eye-fill"></i>
+                            <span th:text="|${post.stats?.visit ?:0}|" id="visit-counter"></span>
+                            <i class="mingcute--message-1-fill"></i>
+                            <span th:text="|${post.stats?.comment ?:0}|"></span>
+                            <i class="mingcute--thumb-up-2-fill"></i>
+                            <span th:text="|${post.stats?.upvote ?:0}|"></span>
+                        </div>
+                    </div>
+                    <div class="article-tags flex align-center">
+                        <a th:each="tag : ${post.tags}" th:href="@{${tag.status.permalink}}"
+                            th:title="|标签：${tag.spec.displayName}|" th:text="|#${tag.spec.displayName}|"></a>
+                    </div>
+                </div>
+
+            </div>
+            <div class="archinves-main-page" th:if="${posts.hasPrevious() || posts.hasNext()}">
+                <div class="archinves-main-page-num">
+                    <a th:if="${posts.hasPrevious()}" th:href="@{${posts.prevUrl}}">
+                        <span> 上一页 👈🏻</span>
+                    </a>
+                </div>
+                <span th:text="|${posts.page} / ${posts.totalPages}|"></span>
+                <div class="archinves-main-page-num">
+                    <a th:if="${posts.hasNext()}" th:href="@{${posts.nextUrl}}">
+                        <span>👉🏻 下一页</span>
+                    </a>
+                </div>
+            </div>
+            <div th:if="${posts.total == 0}" class="category-guide text-center">
+                <span>此标签下没有文章</span>
+            </div>
+        </div>
+
+
+
+
+        <th:block th:replace="~{modules/other-card :: other-card(prepend = null)}" />
+
+    </div>
+
+    <th:block th:replace="~{modules/footer}" />
+</th:block>
+
 </html>

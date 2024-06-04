@@ -1,21 +1,17 @@
 apiVersion: theme.halo.run/v1alpha1
 kind: Theme
 metadata:
-  name: theme-starter
+  name: theme-Mego
 spec:
-  displayName: Theme Starter
+  displayName: Mego
   author:
-    name: Halo
-    website: "https://github.com/halo-dev"
-  description: Halo 2.0 Theme base on Thymeleaf
-  logo: "https://www.halo.run/logo"
-  homepage: "https://github.com/halo-dev/theme-starter#readme"
-  repo: "https://github.com/halo-dev/theme-starter"
-  issues: "https://github.com/halo-dev/theme-starter/issues"
-  settingName: "theme-starter-setting"
-  configMapName: "theme-starter-configMap"
+    name: 無.Flac
+    website: https://w-flac.org.cn
+  description: 一款基于 Halo 的简约时尚的原创卡片式博客主题，炫酷的个人展示图，拥有 Banner 展示位、通知、侧边小卡片。
+  logo: https://halo.run/logo
+  website: https://w-flac.org.cn
+  repo: 
+  settingName: "theme-Mego-setting"
+  configMapName: "theme-Mego-configMap"
   version: "1.0.0"
-  requires: ">=2.0.0"
-  license:
-    - name: "GPL-3.0"
-      url: "https://github.com/halo-dev/plugin-starter/blob/main/LICENSE"
+  require: ">=2.14.0"

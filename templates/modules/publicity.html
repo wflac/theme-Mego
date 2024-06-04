@@ -1,0 +1,47 @@
+<div th:if="${theme.config.publicity.switch}" class="publicity flex mt-10 mb-10">
+    <div class="banner swiper" th:with="banners = ${theme.config.publicity.banners}">
+        <div class="swiper-wrapper">
+            <!-- Slides -->
+            <th:block th:each="banner : ${banners}">
+                <div class="swiper-slide">
+                    <a target="_blank" class="media-content" th:href="@{${banner.url}}">
+                        <img th:src="${banner.image}">
+                    </a>
+                </div>
+            </th:block>
+        </div>
+
+        <!-- If we need pagination -->
+        <th:block th:if="${banners.size() > 1}">
+            <div class="swiper-pagination"></div>
+            <div class="swiper-button-prev" style="display: none;"></div>
+            <div class="swiper-button-next" style="display: none;"></div>
+        </th:block>
+
+    </div>
+    <div th:if="${theme.config.publicity.widgets == 'calendar'}" class="calendar ml-5">
+        <div class="calendar-bg flex flex-center">
+            <i class="mingcute--calendar-2-line"></i>
+            <p>日历</p>
+        </div>
+        <div class="calendar-card flex flex-center flex-col" id="calendarCard">
+            <div class="calendar-date"></div>
+            <div class="calendar-event" id="calendarEvent"></div>
+        </div>
+    </div>
+    <div th:if="${theme.config.publicity.widgets == 'article'}" class="article ml-5">
+        <div th:with="post = ${postFinder.getByName(theme.config.publicity.article_post)} " class="article-item">
+            <img th:src="${post.spec.cover}" class="article-cover" />
+            <div class="calendar-date"></div>
+            <p>日</p>
+            <a th:href="@{${post.status.permalink}}" class="article-action">
+                <i class="mingcute--arrow-right-up-circle-line"></i>
+            </a>
+            <div class="article-list flex">
+                <H2>
+                    <a th:href="@{${post.status.permalink}}" th:text="${post.spec.title}"></a>
+                </H2>
+            </div>
+        </div>
+    </div>
+</div>

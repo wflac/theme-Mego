@@ -1,0 +1,19 @@
+<div class="hot-articles mb-10">
+    <div class="hot-title flex flex-center">
+        <i class="heroicons-solid--fire"></i>
+        <p>热门文章</p>
+    </div>
+    <div th:with="posts = ${postFinder.list(1,5)}" class="hot-container">
+        <div th:each="post : ${posts}" class="hot-item flex flex-center">
+            <img th:src="${post.spec.cover ?: #theme.assets('/images/user.svg') }"
+                th:style="${!#strings.isEmpty(post.spec.cover)} ? '' : 'object-fit: fill;width: 41%;'"
+                class="hot-cover">
+            <div class="hot-content flex">
+                <a class="" th:href="@{${post.status.permalink}}" th:text="${post.spec.title}"
+                    th:title="${post.spec.title}"></a>
+                <small th:text="${#dates.format(post.spec.publishTime,'yyyy 年 MM 月 dd 日')}"></small>
+            </div>
+        </div>
+    </div>
+
+</div>

@@ -1,26 +1,53 @@
 <!DOCTYPE html>
-<html
-  xmlns:th="https://www.thymeleaf.org"
-  th:replace="~{layout :: html(head = null,content = ~{::content})}"
->
-  <th:block th:fragment="content">
-    <th:block th:each="archive : ${archives.items}">
-      <h1 th:text="${archive.year}"></h1>
-      <ul class="listing">
-        <th:block th:each="month : ${archive.months}">
-          <li th:each="post : ${month.posts}">
-            <a
-              th:href="@{${post.status.permalink}}"
-              th:title="${post.spec.title}"
-              th:text="${post.spec.title}"
-            ></a>
-          </li>
-        </th:block>
-      </ul>
-    </th:block>
-    <a th:if="${archives.hasPrevious()}" th:href="@{${archives.prevUrl}}">
-      上一页
+<html xmlns:th="https://www.thymeleaf.org"
+  th:replace="~{modules/layout :: html(title = '归档 - ' + ${site.title}, hero = null, content = ~{::content}, head = null, footer = null, sidebar = ~{::sidebar}, contentClass = '')}">
+<th:block th:fragment="content">
+  <div
+    th:style="${not #strings.isEmpty(theme.config.header.images)} ? 'background-image: url(' + ${theme.config.header.images} + ')' : ''"
+    class="header m-auto mt-10 br-20 flex flex-col">
+    <a th:href="${site.url}" class="flex m-auto">
+      <img th:src="${site.logo}" alt="Logo" class="header-site" />
     </a>
-    <a th:if="${archives.hasNext()}" th:href="@{${archives.nextUrl}}">下一页</a>
-  </th:block>
-</html>
+    <h1 th:text="${theme.config.header.title ?: site.title}"
+      th:style="${!#strings.isEmpty(theme.config.header.color)} ? 'color: ' + ${theme.config.header.color} : ''"
+      class="mt-10 mb-10 text-2"></h1>
+    <hr>
+    <p th:text="${theme.config.header.description ?: site.subtitle}"
+      th:style="${!#strings.isEmpty(theme.config.header.color)} ? 'color: ' + ${theme.config.header.color} : ''"
+      class="mt-10"></p>
+  </div>
+  <th:block th:replace="~{modules/menu}" />
+  <div class="archives flex mt-10">
+    <div class="archives-main mr-5 flex flex-col" th:each="archive : ${archives.items}">
+      <div class="archives-list flex" th:each="month : ${archive.months}">
+        <div class="archives-title">
+          <h1 th:text="|${archive.year} 年 ${month.month} 月|"></h1>
+        </div>
+        <div class="archives-item">
+          <div th:each="post : ${month.posts}">
+            <div class="archives-item-list flex">
+              <p th:text="${#dates.format(post.spec.publishTime,'yyyy-MM-dd')}">2024年12月31日</p>
+              <a th:href="@{${post.status.permalink}}" th:title="${post.spec.title}" th:text="${post.spec.title}">
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="archives-main-page " th:if="${archives.hasPrevious() || archives.hasNext()}">
+        <div class="archives-main-page-num">
+          <a th:if="${archives.hasPrevious()}" th:href="@{${archives.prevUrl}}">
+            <span> 上一页 👈🏻</span>
+          </a>
+        </div>
+        <span th:text="|${archives.page} / ${archives.totalPages}|"></span>
+        <div class="archives-main-page-num">
+          <a th:if="${archives.hasNext()}" th:href="@{${archives.nextUrl}}">
+            <span>👉🏻 下一页</span>
+          </a>
+        </div>
+      </div>
+    </div>
+    <th:block th:replace="~{modules/other-card :: other-card(prepend = null)}" />
+  </div>
+  <th:block th:replace="~{modules/footer}" />
+</th:block>

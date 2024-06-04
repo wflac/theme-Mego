@@ -1,0 +1,84 @@
+<th:block th:fragment="content">
+    <div class="post-contents flex mt-10">
+        <main class="post-container mr-5">
+            <div class="post-title flex flex-col">
+                <h1 th:text="${post.spec.title}"></h1>
+                <div class="post-item flex justify">
+                    <div class="post-item-left flex flex-center">
+                        <p th:text="|${#dates.format(post.spec.publishTime,'yyyy-MM-dd')}发表于|" class="mr-5"></p>
+                        <i class="lets-icons--date-fill"></i>
+                        <a th:each="categories : ${post.categories}" th:href="@{${categories.status.permalink}}"
+                            th:title="|分类：${categories.spec.displayName}|" th:text="|${categories.spec.displayName}|"
+                            class="ml-5"></a>
+                    </div>
+                    <div class="post-item-right flex">
+                        <i class="mingcute--eye-fill"></i>
+                        <span th:text="|${post.stats?.visit ?:0}|" id="visit-counter"></span>
+                        <i class="mingcute--message-1-fill"></i>
+                        <span th:text="|${post.stats?.comment ?:0}|"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="post-content">
+                <article th:utext="${post.content.content}"></article>
+            </div>
+            <div id="comment" th:if="${haloCommentEnabled}">
+                <div class="comment-title flex">
+                    <i class="mingcute--message-1-fill"></i>
+                    <h2>评论</h2>
+                </div>
+                <halo:comment group="content.halo.run" kind="Post" th:attr="name=${post.metadata.name}" />
+            </div>
+        </main>
+
+        <div class="post-aside-card">
+            <div th:with="stats = ${siteStatsFinder.getStats()}" class="site flex mb-10">
+                <img th:src="${site.logo ?: #theme.assets('/images/user.svg')}" alt="Logo" class="site-logo" />
+                <div class="site-stats flex justify text-center">
+                    <div class="site-stats-list">
+                        <p th:text="${stats.post}"></p>
+                        <div class="aside-card-about-name">文章数</div>
+                    </div>
+                    <div class="site-stats-list">
+                        <p th:text="${stats.category}"></p>
+                        <div class="aside-card-about-name">分类数</div>
+                    </div>
+                    <div class="site-stats-list">
+                        <p th:text="${stats.comment}"></p>
+                        <div class="aside-card-about-name">评论数</div>
+                    </div>
+                    <div class="site-stats-list">
+                        <p th:text="${stats.visit}"></p>
+                        <div class="aside-card-about-name">访问量</div>
+                    </div>
+                </div>
+                <hr>
+                <div th:with="social = ${theme.config.sidebar.social}" class="site-social mt-10">
+                    <th:block th:each="social_item : ${social}" class="flex">
+                        <a th:if="${social_item.url_type == 'normal'}" th:href="${social_item.url}" target="_blank"
+                            th:title="${social_item.name}">
+                            <i th:classappend="${social_item.icon}"></i>
+                        </a>
+                        <span th:if="${social_item.url_type == 'image'}" th:href="${social_item.url}" target="_blank">
+                            <i th:classappend="${social_item.icon}"></i>
+                        </span>
+                    </th:block>
+                </div>
+            </div>
+            <div class="tocbot">
+                <div class="title flex flex-center">
+                    <i class="mingcute--align-top-line"></i>
+                    <p>文章目录</p>
+                </div>
+                <div id="toc"></div>
+            </div>
+        </div>
+
+    </div>
+    <script th:src="@{/assets/js/tocbot.min.js}"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            Tocbot();
+        });
+    </script>
+</th:block>

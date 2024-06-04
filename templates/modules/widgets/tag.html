@@ -1,0 +1,14 @@
+<div class="hot-tags mb-10">
+    <div class="hot-title flex flex-center">
+        <i class="heroicons-solid--fire"></i>
+        <p>标签归档</p>
+    </div>
+    <li th:each="tag : ${tags}" th:title="${tag.spec.displayName}">
+        <a th:href="@{${tag.status.permalink}}">
+            <th:block th:text="|#${tag.spec.displayName}|" />
+            <span th:text="${tag.status.visiblePostCount}">
+            </span>
+        </a>
+    </li>
+    </ul>
+</div>
