@@ -18,21 +18,23 @@
   </div>
   <th:block th:replace="~{modules/menu}" />
   <div class="archives flex mt-10">
-    <div class="archives-main mr-5 flex flex-col" th:each="archive : ${archives.items}">
-      <div class="archives-list flex" th:each="month : ${archive.months}">
-        <div class="archives-title">
-          <h1 th:text="|${archive.year} 年 ${month.month} 月|"></h1>
-        </div>
-        <div class="archives-item">
-          <div th:each="post : ${month.posts}">
-            <div class="archives-item-list flex">
-              <p th:text="${#dates.format(post.spec.publishTime,'yyyy-MM-dd')}">2024年12月31日</p>
-              <a th:href="@{${post.status.permalink}}" th:title="${post.spec.title}" th:text="${post.spec.title}">
-              </a>
+    <div class="archives-main mr-5 flex flex-col">
+      <th:block th:each="archive : ${archives.items}">
+        <div class="archives-list flex" th:each="month : ${archive.months}">
+          <div class="archives-title">
+            <h1 th:text="|${archive.year} 年 ${month.month} 月|"></h1>
+          </div>
+          <div class="archives-item">
+            <div th:each="post : ${month.posts}">
+              <div class="archives-item-list flex">
+                <p th:text="${#dates.format(post.spec.publishTime,'yyyy-MM-dd')}">2024年12月31日</p>
+                <a th:href="@{${post.status.permalink}}" th:title="${post.spec.title}" th:text="${post.spec.title}">
+                </a>
+              </div>
             </div>
           </div>
         </div>
-      </div>
+      </th:block>
       <div class="archives-main-page " th:if="${archives.hasPrevious() || archives.hasNext()}">
         <div class="archives-main-page-num">
           <a th:if="${archives.hasPrevious()}" th:href="@{${archives.prevUrl}}">

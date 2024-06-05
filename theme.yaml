@@ -8,9 +8,9 @@ spec:
     name: 無.Flac
     website: https://w-flac.org.cn
   description: 一款基于 Halo 的简约时尚的原创卡片式博客主题，炫酷的个人展示图，拥有 Banner 展示位、通知、侧边小卡片。
-  logo: "https://parlo.cn/upload/mego-logo.png"
+  logo: "https://halo.run/logo"
   homepage: "https://github.com/wflac/theme-Mego#readme"
-  website: "https://w-flac.org.cn"
+  website: "https://w-flac.org.cn/?preview-theme=theme-Mego"
   repo: "https://github.com/wflac/theme-Mego"
   issues: "https://chat.m-imo.com/#/chat/channel/5"
   settingName: "theme-Mego-setting"
