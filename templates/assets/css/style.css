@@ -315,6 +315,22 @@ strong {
   object-fit: cover;
   margin: 0.5rem;
 }
+.main-contents .main-page {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 1.25rem;
+  font-size: 1rem;
+}
+.main-contents .page-num {
+  width: 100px;
+  text-align: center;
+  visibility: visible;
+  transition: transform 0.3s ease;
+}
+.main-contents .page-num:hover {
+  transform: scale(1.05);
+}
 .article-main {
   padding: 0.625rem;
   flex: 1;

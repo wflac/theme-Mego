@@ -37,6 +37,19 @@
                     </div>
                 </div>
             </div>
+            <div th:if="${posts.hasPrevious() || posts.hasNext()}" class="flex text-1 main-page">
+                <div class="page-num">
+                    <a th:if="${posts.hasPrevious()}" th:href="@{${posts.prevUrl}}">
+                        <span> 上一页 👈🏻</span>
+                    </a>
+                </div>
+                <span th:text="|${posts.page} / ${posts.totalPages}|"></span>
+                <div class="page-num">
+                    <a th:if="${posts.hasNext()}" th:href="@{${posts.nextUrl}}">
+                        <span>👉🏻 下一页</span>
+                    </a>
+                </div>
+            </div>
         </div>
         <th:block th:replace="~{modules/aside-card :: aside-card(prepend = null)}" />
     </div>
