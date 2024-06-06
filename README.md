@@ -11,7 +11,9 @@
  ![Demo Pic](https://parlo.cn/upload/demo.png)
 </div>
 
-## 演示站点： [無·Flac](https://w-flac.org.cn/?preview-theme=theme-Mego) 、 [世界第一可爱](https://www.nahida.cn/?preview-theme=theme-Mego)
+## 演示站点： 
+- [無·Flac](https://w-flac.org.cn/?preview-theme=theme-Mego) 
+- [世界第一可爱](https://www.nahida.cn/?preview-theme=theme-Mego)
 
 ## 插件支持
 
